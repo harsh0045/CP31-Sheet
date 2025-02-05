@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define pi (3.141592653589)
+#define mod 1000000007
+#define pb push_back
+#define is insert
+#define mp make_pair
+#define ff first
+#define ss second
+#define all(x) x.begin(), x.end()
+#define min3(a, b, c) min(c, min(a, b))
+#define min4(a, b, c, d) min(d, min(c, min(a, b)))
+#define rfr(n) for(int i=n-1;i>=0;i--)
+#define rep1(i,a,b) for(long long i=a;i<=b;i++)
+#define fr(n) for(long long i=0;i<n;i++)
+#define nesfr(x,y) for(long long i=0;i<x;i++)for(long long j=0;j<y;j++)
+#define rep(i,a,b) for(long long i=a;i<b;i++)
+#define fast ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
+typedef long long int ll;
+typedef long double ld;
+typedef vector<ll> vi;
+#define nl cout << "\n"
+#define cn(x) cin>>x;
+const unsigned int M = 1000000007;
+const int  N = 2e5 + 5 ;
+
+void helper(int i, unordered_set<int>&st1,unordered_set<int>&st2,vector<vector<int>>&adj,vector<bool>&visited){
+    visited[i]=true;
+    st1.insert(i);
+    for(int j=0;j<adj[i].size();j++){
+        if(!visited[adj[i][j]]){
+            helper(adj[i][j],st2,st1,adj,visited);
+        }
+    }
+
+}
+void Harsh(){
+    int n;
+    cin>>n;
+    vector<vector<int>>adj(n+1);
+    vector<bool>visited(n+1,false);
+    for(int i=0;i<n-1;i++){
+       int u,v;
+       cin>>u>>v;
+       adj[u].push_back(v);
+       adj[v].push_back(u);
+    }
+    unordered_set<int>set1,set2;
+    for(int i=1;i<=n;i++){
+       if(!visited[i]){
+         helper(i,set1,set2,adj,visited);
+       }
+    }
+    int A=set1.size(),B=set2.size();
+   
+    cout<<A*B - (n-1)<<endl;
+}
+int main()
+{
+    fast;
+    int t=1;
+    // cin>>t;
+    while(t--){
+        Harsh();
+    }
+    return 0;
+}
